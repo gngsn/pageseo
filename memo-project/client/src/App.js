@@ -25,7 +25,7 @@ class App extends Component {
               "Content-Type": "application/json;charset=UTF-8",
               'Accept': 'application/json',
               },
-            mode:"cors",
+            // mode:"cors",
           })
           .then(memos => 
             {
