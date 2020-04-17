@@ -19,8 +19,7 @@ class App extends Component {
   }
 
   getAllMemos = () => {
-    fetch('/memo')
-    .then(res => res.json())
+    fetch('http://13.209.144.115:3001/memo').then(res => res.json())
     .then(memos => 
       {
         this.setState({ memos });
