@@ -24,9 +24,11 @@ class App extends Component {
     .then(memos => 
       {
         this.setState({ memos });
-        console.log( memos );
-    }
-      );
+        console.log( "Network success - memo : ", memos );
+    }).catch(
+      console.log( "Network Error" )
+    );
+      ;
   }
   
   closeModal = () => {
