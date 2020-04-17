@@ -19,23 +19,20 @@ class App extends Component {
   }
 
   getAllMemos = () => {
-    fetch('http://13.209.144.115:3001/memo', {
+    fetch('http://13.209.144.115:3001/memo/', {
             method: "GET",
-            headers:{  
+            headers:{
               "Content-Type": "application/json;charset=UTF-8",
-              'Accept': 'application/json',
+              "Access-Control-Allow-Origin": "*",
+              // 'Accept': 'application/json',
               },
-            // mode:"cors",
+            mode:"cors",
+          }).then( res => {
+            return res.json();
           })
-          .then(memos => 
-            {
-              this.setState({ memos });
+          .then( memos => {
+              this.setState(memos);
               console.log( "Network success - memo : ", memos );
-          })
-          .then((response) =>{
-              this.setState({
-                  result : response.data.reactMessage
-              })
           })
           .catch( error =>
             console.log( "Network Error : ", error )

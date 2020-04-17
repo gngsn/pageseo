@@ -10,6 +10,7 @@ var usersRouter = require('./routes/users');
 var app = express();
 var mongoose    = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,6 +29,7 @@ app.use('/users', usersRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+app.use(cors());
 
 // error handler
 app.use(function(err, req, res, next) {
