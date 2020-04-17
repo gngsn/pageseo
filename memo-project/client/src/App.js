@@ -21,7 +21,12 @@ class App extends Component {
   getAllMemos = () => {
     fetch('/memo')
     .then(res => res.json())
-    .then(memos => this.setState({ memos }));
+    .then(memos => 
+      {
+        this.setState({ memos });
+        console.log( memos );
+    }
+      );
   }
   
   closeModal = () => {
@@ -42,7 +47,8 @@ class App extends Component {
         <table>
 						<tbody>
 							<tr className='trList'>
-                { this.state.memos.map(memo =>
+                {  
+                this.state.memos.map ( memo =>
 									<td className='cell' key={memo._id}>
                       <div className='inner'>
 											<h2> {memo.title} </h2>
