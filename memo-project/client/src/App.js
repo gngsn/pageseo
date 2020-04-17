@@ -37,8 +37,8 @@ class App extends Component {
                   result : response.data.reactMessage
               })
           })
-          .catch(
-            console.log( "Network Error : ", err )
+          .catch( error =>
+            console.log( "Network Error : ", error )
           );
   }
   
