@@ -23,10 +23,9 @@ class App extends Component {
             method: "GET",
             headers:{
               "Content-Type": "application/json;charset=UTF-8",
-              "Access-Control-Allow-Origin": "*",
-              // 'Accept': 'application/json',
+              'Accept': 'application/json',
               },
-            mode:"cors",
+            mode:"no-cors",
           }).then( res => {
             return res.json();
           })
@@ -58,7 +57,7 @@ class App extends Component {
 						<tbody>
 							<tr className='trList'>
                 {  
-                this.state.memos.map ( memo =>
+                this.state.memos.forEach ( memo =>
 									<td className='cell' key={memo._id}>
                       <div className='inner'>
 											<h2> {memo.title} </h2>
