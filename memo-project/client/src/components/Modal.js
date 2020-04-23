@@ -13,8 +13,12 @@ class Modal extends Component {
     }
 
     handleClick = (event) => {
-        fetch(`/memo`, {
-            method: "POST",
+        if (!this.state.title || !this.state.content || !this.state.author) {
+            alert('내용을 입력해주세요 ~');
+            return;
+        }
+        fetch('/memo', {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8',
                 'Accept': 'application/json',

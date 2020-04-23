@@ -16,6 +16,10 @@ const memo = {
     },
     write: async (req, res) => {
         try {
+            if (!req.body) {
+                res.status(400).send('data를 입력해주세요.');
+            return;
+            }
             const result = await Memo.create(req.body);
             console.log("result : ", result);
             res.status(200).send(result);
