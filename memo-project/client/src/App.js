@@ -1,63 +1,77 @@
-import React, { Component } from 'react';
+import React from 'react';
+import './App.css';
 import plus from './plus.png';
 import Modal from './components/Modal';
-import './App.css';
 
-
-class App extends Component {
-
+class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      isModalOpen: false, 
+      isModalOpen: false,
       memos: []
     }
   }
-  
+
   openModal = () => {
     this.setState({ isModalOpen: true });
   }
 
-  getAllMemos = () => {
-    fetch('http://13.209.144.115:3001/memo/', {
-            method: "GET",
-            headers:{
-              "Content-Type": "application/json;charset=UTF-8",
-              'Accept': 'application/json',
-              },
-            mode:"no-cors",
-          }).then( res => {
-            return res.json();
-          })
-          .then( memos => {
-              this.setState(memos);
-              console.log( "Network success - memo : ", memos );
-          })
-          .catch( error =>
-            console.log( "Network Error : ", error )
-          );
-  }
-  
   closeModal = () => {
     this.setState({ isModalOpen: false });
     this.getAllMemos();
   }
 
-  componentDidMount(){
-    this.getAllMemos();
+  getAllMemos = () => {
+    fetch('/memo', {
+      method: "GET",
+      headers:{
+        "Content-Type": "application/json;charset=UTF-8",
+        'Accept': 'application/json',
+        },
+      mode:"cors",
+    }).then( res => {
+      return res.json();
+    })
+    .then( memos => {
+        this.setState({memos: memos});
+      console.log( "Network success - memo : ", memos );
+    })
+    .catch( error =>
+      console.log( "Network Error : ", error )
+    );
   }
 
 
+  componentWillMount() {
+      fetch('/memo', {
+        method: "GET",
+        headers:{
+          "Content-Type": "application/json;charset=UTF-8",
+          'Accept': 'application/json',
+          },
+        mode:"cors",
+      }).then( res => {
+        return res.json();
+      })
+      .then( memos => {
+          this.setState({memos: memos});
+        console.log( "Network success - memo : ", memos );
+      })
+      .catch( error =>
+        console.log( "Network Error : ", error )
+      );
+  }
+
   render() {
-    return (
+    return(
       <div className='container'>
       <div className='App'>
         <h1> 메모장 </h1><br/><br/>
         <table>
 						<tbody>
 							<tr className='trList'>
-                {  
-                this.state.memos.forEach ( memo =>
+                {
+                this.state.memos.map( memo =>
 									<td className='cell' key={memo._id}>
                       <div className='inner'>
 											<h2> {memo.title} </h2>
@@ -83,5 +97,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;

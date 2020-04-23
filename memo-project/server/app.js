@@ -8,9 +8,27 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
-var mongoose    = require('mongoose');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
+
+// body-parser setup
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// mongoose setup
+mongoose.Promise = global.Promise;
+mongoose.createConnection('mongodb://127.0.0.1:27017/', { useNewUrlParser: true });
+
+var db = mongoose.connection;
+
+db.on('error', console.error);
+db.once('open', function(){
+    console.log("Connected to mongod server");
+});
+
+// mongodb://localhost/<db-name>
+mongoose.connect('mongodb://localhost/memo');
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,7 +47,6 @@ app.use('/users', usersRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
-app.use(cors());
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -41,19 +58,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-mongoose.Promise = global.Promise;
-mongoose.createConnection('mongodb://127.0.0.1:27017/', { useNewUrlParser: true });
-
-var db = mongoose.connection;
-
-db.on('error', console.error);
-db.once('open', function(){
-    console.log("Connected to mongod server");
-});
-
-mongoose.connect('mongodb://localhost/memo');
 
 module.exports = app;

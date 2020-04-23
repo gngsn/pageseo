@@ -10,6 +10,9 @@ const memoSchema = new mongoose.Schema({
   collection: 'memos'
 }, );
 
+memoSchema.statics.findAll = function () {
+  return this.find({});
+};
 
 memoSchema.statics.create = function (payload) {
   try {
@@ -20,20 +23,4 @@ memoSchema.statics.create = function (payload) {
   }
 };
 
-memoSchema.statics.findAll = function () {
-  return this.find({});
-};
-
-memoSchema.statics.findOneByMemoid = function (memoId) {
-  return this.findOne({ memoId });
-};
-
-memoSchema.statics.updateByMemoid = function (memoId, payload) {
-  return this.findOneAndUpdate({ memoId }, payload, { new: true });
-};
-
-memoSchema.statics.deleteByMemoid = function (memoId) {
-  return this.remove({ memoId });
-};
-
-module.exports = mongoose.model('memo', memoSchema);
+module.exports = module.exports = mongoose.model('memo', memoSchema);
