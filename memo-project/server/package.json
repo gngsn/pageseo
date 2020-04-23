@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm-run-all --parallel start:**",
     "start:client": "cd ../client && yarn start && yarn start",
-    "start:server": "node ./bin/www"
+    "start:server": "pm2 start ./bin/www"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -16,6 +16,7 @@
     "jade": "~1.11.0",
     "mongoose": "^5.9.9",
     "morgan": "~1.9.1",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "pm2": "^4.3.1"
   }
 }
