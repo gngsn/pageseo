@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "npm-run-all --parallel start:**",
-    "start:client": "cd ../client && yarn start && yarn start",
+    "start:client": "cd ../client && pm2 start node_modules/react-scripts/scripts/start.js --name 'app'",
     "start:server": "pm2 start ./bin/www"
   },
   "dependencies": {
