@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 const userController = require('../controllers/userController');
 
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
+
 router.post('/signin', userController.signin);
 router.post('/signup', userController.signup);
 
