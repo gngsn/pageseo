@@ -78,7 +78,6 @@ class App extends React.Component {
 											<h2> {memo.title} </h2>
                       <h5> {memo.author} </h5><br/><br/>
 											<h4> {memo.content} </h4><br/>
-                      <h5> {memo.updatedAt.split('T')[0]} </h5>
 										</div>
 									</td>
                 )}
