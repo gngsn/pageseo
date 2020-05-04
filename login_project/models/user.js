@@ -22,7 +22,7 @@ const user = {
                 if (user.password != hashed) {
                     return {
                         code: statusCode.BAD_REQUEST,
-                        json: util.successFalse(resMessage.MISS_MATCH_PW)
+                        json: util.successFalse(statusCode.BAD_REQUEST, resMessage.MISS_MATCH_PW)
                     };
                 }
                 const token = jwt.sign(user).token
@@ -56,7 +56,7 @@ const user = {
                 const userId = result.insertId;
                 return {
                     code: statusCode.OK,
-                    json: util.successTrue(resMessage.SIGN_UP_SUCCESS, userId)
+                    json: util.successTrue(statusCode.NO_CONTENT, resMessage.SIGN_UP_SUCCESS)
                 };
             })
             .catch(err => {
@@ -64,7 +64,7 @@ const user = {
                     console.log(err.errno, err.code);
                     return {
                         code: statusCode.BAD_REQUEST,
-                        json: util.successFalse(resMessage.ALREADY_ID)
+                        json: util.successFalse(statusCode.BAD_REQUEST, resMessage.ALREADY_ID)
                     };
                 }
                 console.log(err);
