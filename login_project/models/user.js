@@ -13,16 +13,16 @@ const user = {
             .then( async (resultUser) => {
                 if (resultUser.length == 0) {
                     return {
-                        code: statusCode.BAD_REQUEST,
-                        json: util.successFalse(resMessage.NO_USER)
+                        code: statusCode.OK,
+                        json: util.successFalse(statusCode.OK, resMessage.NO_USER)
                     };
                 }
                 const user = resultUser[0];
                 const {salt, hashed} = await encrypt.encryptWithSalt(password, user.salt);
                 if (user.password != hashed) {
                     return {
-                        code: statusCode.BAD_REQUEST,
-                        json: util.successFalse(statusCode.BAD_REQUEST, resMessage.MISS_MATCH_PW)
+                        code: statusCode.OK,
+                        json: util.successFalse(statusCode.OK, resMessage.MISS_MATCH_PW)
                     };
                 }
                 const token = jwt.sign(user).token
