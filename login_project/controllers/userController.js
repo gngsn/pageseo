@@ -30,7 +30,7 @@ const user = {
         }
         const isThere = await User.userCheck (id);
         if (!isThere) {
-            return res.status(statusCode.BAD_REQUEST).send(util.successFalse(statusCode.BAD_REQUEST, resMsg.ALREADY_ID));
+            return res.status(statusCode.OK).send(util.successFalse(statusCode.OK, resMsg.ALREADY_ID));
         }
         const {salt, hashed} = await encrypt.encrypt(password);
         try {
