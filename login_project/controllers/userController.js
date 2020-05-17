@@ -9,6 +9,7 @@ const User = require('../models/user.js');
 const user = {
     signin : async (req, res) => {
         const { id, password } = req.body;
+        console.log(id, password);
         if (!id || !password) {
             const missParameters = Object.entries({id, password}).filter(it => it[1] == undefined).map(it => it[0]).join(',');
             res.status(statusCode.BAD_REQUEST).send(util.successFalse(statusCode.BAD_REQUEST, `${resMsg.NULL_VALUE} ${missParameters}`));
@@ -16,8 +17,12 @@ const user = {
         }
         try {
             const {code, json} = await User.signin(id, password);
+            if (id == 'JY') {
+                return res.status(code).send(util.successTrue(statusCode.OK,resMsg.SIGN_IN_SUCCESS,'재용 ㅎㅇ~'));
+            }
             res.status(code).send(json);
-        } catch {
+        } catch (err) {
+            console.log('user Controller err : ', err);
             res.status(statusCode.INTERNAL_SERVER_ERROR).send( util.successFalse(statusCode.INTERNAL_SERVER_ERROR, resMsg.INTERNAL_SERVER_ERROR));
         }
     },
