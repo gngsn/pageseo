@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
-
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+const multer = require('multer');
+const upload = multer({
+  dest: 'uploads/'
 });
+const UserController = require('../controllers/userController');
+
+router.post('/profile', upload.single('image'), UserController.uploadProfile);
 
 module.exports = router;
