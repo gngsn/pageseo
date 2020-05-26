@@ -15,9 +15,11 @@ const util = {
         }
     }
 }
+
 const user = {
     uploadImage: async (req, res) => {
         const image = req.file.path;
+        console.log(req.file);
         if (image === undefined) {
             return res.status(400).send(util.fail(400, "이미지가 존재하지 않습니다."));
         }
