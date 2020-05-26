@@ -17,7 +17,7 @@ const util = {
 }
 
 const user = {
-    uploadImage: async (req, res) => {
+    uploadProfile: async (req, res) => {
         const image = req.file.path;
         console.log(req.file);
         if (image === undefined) {
