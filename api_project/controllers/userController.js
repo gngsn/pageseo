@@ -81,7 +81,7 @@ const user = {
         } = req.body;
         const profileImg = req.file;
         if (!name && !email && !phone && !profileImg)
-            return res.status(statusCode.BAD_REQUEST).send(util.successFalse(statusCode.BAD_REQUEST, resMsg.NO_CHANGE));
+            return res.status(statusCode.OK).send(util.successTrue(statusCode.OK, resMsg.NO_CHANGE));
         const result = await User.updateProfile(name, email, phone, profileImg.location, userIdx);
         res.status(statusCode.OK).send(util.successTrue(statusCode.OK, resMsg.UPDATE_PROFILE_SUCCESS, result));
     }

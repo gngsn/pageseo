@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 const secretKey = require('../config/secretKey');
 const secretOrPrivateKey = secretKey.secretOrPrivateKey;
 const options = secretKey.options;
+const TOKEN_EXPIRED = -3;
+const TOKEN_INVALID = -2;
 
 module.exports = {
     sign: (user) => {

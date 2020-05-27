@@ -5,7 +5,7 @@ module.exports = {
     NO_CHANGE: "변경된 사항이 없습니다.",
 
     // jwt
-    EXPRIED_TOKEN: "토큰이 만료되었습니다.",
+    EXPIRED_TOKEN: "토큰이 만료되었습니다.",
     INVALID_TOKEN: "토큰이 유효하지 않습니다.",
     EMPTY_TOKEN: "토큰 값이 없습니다.",
 
