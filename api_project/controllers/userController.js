@@ -80,9 +80,12 @@ const user = {
             phone
         } = req.body;
         const profileImg = req.file;
+        if (profileImg !== undefined){
+            profileImg = profileImg.location;
+        }
         if (!name && !email && !phone && !profileImg)
             return res.status(statusCode.OK).send(util.successTrue(statusCode.OK, resMsg.NO_CHANGE));
-        const result = await User.updateProfile(name, email, phone, profileImg.location, userIdx);
+        const result = await User.updateProfile(name, email, phone, profileImg, userIdx);
         res.status(statusCode.OK).send(util.successTrue(statusCode.OK, resMsg.UPDATE_PROFILE_SUCCESS, result));
     }
 }
