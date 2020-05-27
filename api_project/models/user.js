@@ -10,7 +10,7 @@ const user = {
     signin: (id, password) => {
         const query = `SELECT * FROM ${table} WHERE id = '${id}'`;
         return pool.queryParam_None(query)
-            .then( async (resultUser) => {
+            .then(async (resultUser) => {
                 if (resultUser.length == 0) {
                     return {
                         code: statusCode.OK,
@@ -18,7 +18,10 @@ const user = {
                     };
                 }
                 const user = resultUser[0];
-                const {salt, hashed} = await encrypt.encryptWithSalt(password, user.salt);
+                const {
+                    salt,
+                    hashed
+                } = await encrypt.encryptWithSalt(password, user.salt);
                 if (user.password != hashed) {
                     return {
                         code: statusCode.OK,
@@ -31,7 +34,7 @@ const user = {
                 }
                 return {
                     code: statusCode.OK,
-                    json: util.successTrue(statusCode.OK,resMessage.SIGN_IN_SUCCESS,responseData)
+                    json: util.successTrue(statusCode.OK, resMessage.SIGN_IN_SUCCESS, responseData)
                 };
             })
             .catch(err => {
@@ -70,6 +73,23 @@ const user = {
                 console.log(err);
                 throw err;
             });
+    },
+    updateProfile: async (name, email, phone, profile, userIdx) => {
+        const fields = ['name', 'email', 'phone', 'profile'];
+        const values = [name, email, phone, profile];
+        await pool.Transaction(async (connection) => {
+            for (i in fields) {
+                if (values[i] !== undefined && values[i] !== '') {
+                    const query = `UPDATE ${table} SET ${fields[i]}="${values[i]}" WHERE userIdx=${userIdx}`;
+                    await connection.query(query);
+                }
+            }
+        }).catch(err => {
+            console.log(err);
+            throw err;
+        });
+        const query = `SELECT name, email, phone, profile FROM ${table} WHERE userIdx = ${userIdx}`;
+        return pool.queryParam_None(query);
     }
 }
 
