@@ -1,25 +1,9 @@
-const util = {
-    success: (status, message, data) => {
-        return {
-            status: status,
-            success: true,
-            message: message,
-            data: data
-        }
-    },
-    fail: (status, message) => {
-        return {
-            status: status,
-            success: false,
-            message: message
-        }
-    }
-}
+const util = require('../modules/util');
+var multer = require('multer');
 
-const user = {
-    uploadProfile: async (req, res) => {
+module.exports = {
+    uploadImage: async (req, res) => {
         const image = req.file.path;
-        console.log(req.file);
         if (image === undefined) {
             return res.status(400).send(util.fail(400, "이미지가 존재하지 않습니다."));
         }
@@ -32,7 +16,19 @@ const user = {
             return res.status(400).send(util.fail(400, "이미지가 존재하지 않습니다."));
         }
         res.status(200).send(util.success(200, "요청 성공 〰️ ", path));
+    },
+    uploadMultiImages: async (req, res) => {
+        const image = req.files;
+        const backImage = image.background[0];
+        const profiles = image.profiles;
+        const profilePath = profiles.map(img => img.path);
+        if (image === undefined) {
+            return res.status(400).send(util.fail(400, "이미지가 존재하지 않습니다."));
+        }
+        const dto = {
+            backImage : backImage.path,
+            profiles : profilePath
+        }
+        res.status(200).send(util.success(200, "요청 성공 〰️ ", dto));
     }
 }
-
-module.exports = user;
