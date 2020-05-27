@@ -73,19 +73,16 @@ const user = {
         }
     },
     updateProfile : async (req, res) => {
-        console.log(req.decoded);
         const userIdx = req.decoded.idx;
-        console.log(userIdx);
         const {
             name,
             email,
             phone
         } = req.body;
         const profileImg = req.file;
-        console.log('profileImg : ', profileImg);
         if (!name && !email && !phone && !profileImg)
             return res.status(statusCode.BAD_REQUEST).send(util.successFalse(statusCode.BAD_REQUEST, resMsg.NO_CHANGE));
-        const result = await User.updateProfile(name, email, phone, profileImg.path, userIdx);
+        const result = await User.updateProfile(name, email, phone, profileImg.location, userIdx);
         res.status(statusCode.OK).send(util.successTrue(statusCode.OK, resMsg.UPDATE_PROFILE_SUCCESS, result));
     }
 }
