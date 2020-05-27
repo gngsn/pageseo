@@ -79,7 +79,7 @@ const user = {
             email,
             phone
         } = req.body;
-        const profileImg = req.file;
+        let profileImg = req.file;
         if (profileImg !== undefined){
             profileImg = profileImg.location;
         }
