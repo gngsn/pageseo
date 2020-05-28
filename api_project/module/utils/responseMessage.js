@@ -21,5 +21,6 @@ module.exports = {
     NO_USER: "존재하지 않는 유저 입니다.",
 
     // profile
-    UPDATE_PROFILE_SUCCESS: "프로필 업데이트 성공"
+    UPDATE_PROFILE_SUCCESS: "프로필 업데이트 성공",
+    UNSUPPORTED_TYPE: "지원하지 않는 타입입니다."
 };

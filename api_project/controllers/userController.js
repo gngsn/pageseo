@@ -80,8 +80,13 @@ const user = {
             phone
         } = req.body;
         let profileImg = req.file;
+        console.log(profileImg);
         if (profileImg !== undefined){
             profileImg = profileImg.location;
+            const type = req.file.mimetype.split('/')[1];
+            if (type !== 'jpeg' && type !== 'jpg'&& type !== 'png') {
+                return res.status(statusCode.OK).send(util.successTrue(statusCode.OK, resMsg.UNSUPPORTED_TYPE));
+            }
         }
         if (!name && !email && !phone && !profileImg)
             return res.status(statusCode.OK).send(util.successTrue(statusCode.OK, resMsg.NO_CHANGE));
