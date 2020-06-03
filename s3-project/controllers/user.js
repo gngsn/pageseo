@@ -3,7 +3,8 @@ var multer = require('multer');
 
 module.exports = {
     uploadImage: async (req, res) => {
-        const image = req.file.path;
+        console.log(req.file);
+        const image = req.file.location;
         if (image === undefined) {
             return res.status(400).send(util.fail(400, "이미지가 존재하지 않습니다."));
         }
@@ -11,7 +12,7 @@ module.exports = {
     },
     uploadImages : async (req, res) => {
         const image = req.files;
-        const path = image.map(img => img.path);
+        const path = image.map(img => img.location);
         if (image === undefined) {
             return res.status(400).send(util.fail(400, "이미지가 존재하지 않습니다."));
         }
