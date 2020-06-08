@@ -90,6 +90,22 @@ const user = {
         });
         const query = `SELECT name, email, phone, profile FROM ${table} WHERE userIdx = ${userIdx}`;
         return pool.queryParam_None(query);
+    },
+    getProfile: async (idx) => {
+        const query = `SELECT * FROM ${table} WHERE userIdx = '${idx}'`;
+        try {
+            const result = await pool.queryParam_None(query);
+            return {
+                id: result[0].id,
+                name: result[0].name,
+                email : result[0].email,
+                phone : result[0].phone,
+                image: result[0].profile,
+            };
+        } catch (err) {
+            console.log(err);
+            throw err;
+        }
     }
 }
 

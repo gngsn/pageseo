@@ -9,18 +9,8 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 app.io = require('socket.io')();
+global.io = app.io;
 
-app.io.on('connection',(socket) => {
-  console.log('socket connect !');
-
-  socket.on('disconnect', () => {
-      console.log('socket disconnect !');
-  });
-
-  socket.on('chat-msg-1', (msg) => {
-    app.io.emit('chat-msg-2', msg);
-  });
-});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

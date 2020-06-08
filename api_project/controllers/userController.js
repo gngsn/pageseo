@@ -92,6 +92,16 @@ const user = {
             return res.status(statusCode.OK).send(util.successTrue(statusCode.OK, resMsg.NO_CHANGE));
         const result = await User.updateProfile(name, email, phone, profileImg, userIdx);
         res.status(statusCode.OK).send(util.successTrue(statusCode.OK, resMsg.UPDATE_PROFILE_SUCCESS, result));
+    },
+    getProfileImg : async (req, res) => {
+        const userIdx = req.decoded.idx;
+        console.log("userIdx : ", userIdx);
+        const result = await User.getProfile(userIdx);
+        console.log("result : ", result);
+        if (result === undefined) {
+            return res.status(statusCode.OK).send(util.successTrue(statusCode.OK, resMsg.NULL_VALUE));
+        }
+        res.status(statusCode.OK).send(util.successTrue(statusCode.OK, resMsg.READ_PROFILE_SUCCESS, result));
     }
 }
 

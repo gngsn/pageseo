@@ -70,6 +70,21 @@ const user = {
                 console.log(err);
                 throw err;
             });
+    },
+    test: async () => {
+        const query = `SELECT * FROM ${table}`;
+        result = await pool.queryParam_None(query);
+        // console.log(result);
+        const r = await Promise.all(
+            result.map( async(re) => {
+            console.log("re : ", re);
+            const one = user.userCheck(2);
+            const two = await user.userCheck(3);
+            const three = await user.userCheck(4);
+            return {one, two, three};
+        }));
+        
+        console.log(r);
     }
 }
 

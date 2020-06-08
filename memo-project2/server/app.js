@@ -5,22 +5,29 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 var app = express();
-app.io = require('socket.io')();
+var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 
-app.io.on('connection',(socket) => {
-  console.log('socket connect !');
+// body-parser setup
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-  socket.on('disconnect', () => {
-      console.log('socket disconnect !');
-  });
+// mongoose setup
+mongoose.Promise = global.Promise;
+mongoose.createConnection('mongodb://127.0.0.1:27017/', { useNewUrlParser: true });
 
-  socket.on('chat-msg-1', (msg) => {
-    app.io.emit('chat-msg-2', msg);
-  });
+var db = mongoose.connection;
+
+db.on('error', console.error);
+db.once('open', function(){
+    console.log("Connected to mongod server");
 });
+
+// mongodb://localhost/<db-name>
+mongoose.connect('mongodb://localhost/memo');
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -33,7 +40,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

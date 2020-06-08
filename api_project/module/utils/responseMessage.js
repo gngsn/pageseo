@@ -22,5 +22,6 @@ module.exports = {
 
     // profile
     UPDATE_PROFILE_SUCCESS: "프로필 업데이트 성공",
-    UNSUPPORTED_TYPE: "지원하지 않는 타입입니다."
+    UNSUPPORTED_TYPE: "지원하지 않는 타입입니다.",
+    READ_PROFILE_SUCCESS: "프로필 조회 성공"
 };

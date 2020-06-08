@@ -13,4 +13,5 @@ router.get('/', function (req, res, next) {
 router.post('/signin', userController.signin);
 router.post('/signup', userController.signup);
 router.post('/profile', upload.single('profile'), AuthMiddleware.checkToken, userController.updateProfile);
+router.get('/profile', AuthMiddleware.checkToken, userController.getProfileImg);
 module.exports = router;

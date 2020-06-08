@@ -44,6 +44,9 @@ const user = {
         } catch {
             res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.successFalse(statusCode.INTERNAL_SERVER_ERROR, resMsg.INTERNAL_SERVER_ERROR));
         }
+    },
+    test: async (req, res) => {
+        await User.test();
     }
 }
 
