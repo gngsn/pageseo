@@ -1,5 +1,6 @@
 const util = require('../modules/util');
 var multer = require('multer');
+const upload = require('../modules/multer');
 
 module.exports = {
     uploadImage: async (req, res) => {
@@ -10,7 +11,7 @@ module.exports = {
         }
         res.status(200).send(util.success(200, "요청 성공 〰️ ", image));
     },
-    uploadImages : async (req, res) => {
+    uploadImages: async (req, res) => {
         const image = req.files;
         const path = image.map(img => img.location);
         if (image === undefined) {
@@ -27,8 +28,8 @@ module.exports = {
             return res.status(400).send(util.fail(400, "이미지가 존재하지 않습니다."));
         }
         const dto = {
-            backImage : backImage.path,
-            profiles : profilePath
+            backImage: backImage.path,
+            profiles: profilePath
         }
         res.status(200).send(util.success(200, "요청 성공 〰️ ", dto));
     }
