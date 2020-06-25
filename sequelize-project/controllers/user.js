@@ -18,12 +18,10 @@ module.exports = {
                 .send(util.fail(CODE.BAD_REQUEST, MSG.NULL_VALUE));
             return;
         }
-        // 사용자 중인 아이디가 있는지 확인
-        if (await UserModel.checkUser(id)) {
-            res.status(CODE.BAD_REQUEST)
+        if (await UserModel.checkUser(id))
+            return res.status(CODE.BAD_REQUEST)
                 .send(util.fail(CODE.BAD_REQUEST, MSG.ALREADY_ID));
-            return;
-        }
+
         const {
             salt,
             hashed
@@ -35,7 +33,7 @@ module.exports = {
         }
         res.status(CODE.OK)
             .send(util.success(CODE.OK, MSG.CREATED_USER, {
-                userId: idx
+                userId: idx.dataValues.userIdx
             }));
     },
     signin: async (req, res) => {
@@ -43,31 +41,25 @@ module.exports = {
             id,
             password
         } = req.body;
-        if (!id || !password) {
-            res.status(CODE.BAD_REQUEST)
+        if (!id || !password)
+            return res.status(CODE.BAD_REQUEST)
                 .send(util.fail(CODE.BAD_REQUEST, MSG.NULL_VALUE));
-            return;
-        }
 
-        // User의 아이디가 있는지 확인 - 없다면 NO_USER 반납
         const user = await UserModel.getUserById(id);
-        if (user[0] === undefined) {
+        if (user[0] === undefined)
             return res.status(CODE.BAD_REQUEST)
                 .send(util.fail(CODE.BAD_REQUEST, MSG.NO_USER));
-        }
-        // req의 Password 확인 - 틀렸다면 MISS_MATCH_PW 반납
+                
         const hashed = await encrypt.encryptWithSalt(password, user[0].salt);
-        if (hashed !== user[0].password) {
+        if (hashed !== user[0].password)
             return res.status(CODE.BAD_REQUEST)
                 .send(util.fail(CODE.BAD_REQUEST, MSG.MISS_MATCH_PW));
-        }
 
         const {
             token,
             refreshToken
         } = await jwt.sign(user[0]);
 
-        // 로그인이 성공적으로 마쳤다면 - LOGIN_SUCCESS 전달
         res.status(CODE.OK)
             .send(util.success(CODE.OK, MSG.LOGIN_SUCCESS, {
                 accessToken: token
@@ -89,10 +81,6 @@ module.exports = {
         }
         // call model - database
         const result = await UserModel.updateProfile(userIdx, profileImg);
-        res.status(CODE.OK).send(util.success(CODE.OK, MSG.UPDATE_PROFILE_SUCCESS, result));
-    },
-    findAll: async (req, res) => {
-        const result = await UserModel.findAll();
         res.status(CODE.OK).send(util.success(CODE.OK, MSG.UPDATE_PROFILE_SUCCESS, result));
     }
 }

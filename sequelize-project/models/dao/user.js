@@ -1,12 +1,18 @@
 module.exports = function (sequelize, DataTypes) {
     const user = sequelize.define('User', {
-        userID: {
+        userIdx: {
+            field: 'userIdx',
+            type: DataTypes.INTEGER(10),
+            primaryKey: true,
+            autoIncrement: true
+        },
+        id: {
             field: 'id',
             type: DataTypes.STRING(50),
             unique: true,
             allowNull: false
         },
-        userName: {
+        name: {
             field: 'name',
             type: DataTypes.STRING(50),
             allowNull: false

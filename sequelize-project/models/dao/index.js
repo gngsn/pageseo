@@ -11,7 +11,6 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.User = require('./user')(sequelize, Sequelize);
-// db.Comment = require('./comment')(sequelize, Sequelize);
 
 //모델간의 관계를 정의한다.
 // db.User.hasMany(db.Comment, { foreignKey: 'commenter', sourceKey: 'id' });

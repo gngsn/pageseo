@@ -24,7 +24,6 @@ const sequelize = require('./models/dao/index').sequelize;
 sequelize.sync()
   .then(() => {
     console.log('✓ DB connection success.');
-    console.log('  Press CTRL-C to stop\n');
   })
   .catch(err => {
     console.error(err);

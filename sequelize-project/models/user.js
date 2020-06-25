@@ -4,9 +4,9 @@ const models = require('./dao/index');
 const user = {
     signup: async (id, name, password, salt, email) => {
         try {
-            return models.User.create({
-                userID: id,
-                userName: name,
+            return await models.User.create({
+                id: id,
+                name: name,
                 password: password,
                 salt: salt,
                 email: email
@@ -17,9 +17,12 @@ const user = {
         }
     },
     checkUser: async (id) => {
-        const query = `SELECT * FROM ${table} WHERE id="${id}"`;
         try {
-            const result = await pool.queryParam(query);
+            const result = await models.User.findAll({
+                where: {
+                    id: id
+                }
+            });
             if (result.length === 0) {
                 return false;
             } else return true;
@@ -29,23 +32,14 @@ const user = {
         }
     },
     getUserById: async (id) => {
-        // query문 작성
-        const query = `SELECT * FROM ${table} WHERE id="${id}"`;
-        // pool module로 전달해서 결과값 받기
-        // try - catch로 ERROR 받기
         try {
-            return await pool.queryParam(query);
+            return models.User.findAll({
+                where: {
+                    id: id
+                }
+            });
         } catch (err) {
-            console.log('getUserById ERROR : ', err);
-            throw err;
-        }
-    },
-    getUserByIdx: async (idx) => {
-        const query = `SELECT * FROM ${table} WHERE userIdx="${idx}"`;
-        try {
-            return await pool.queryParam(query);
-        } catch (err) {
-            console.log('getUserByIdx ERROR : ', err);
+            console.log('getUserById ERROR : ', err); 
             throw err;
         }
     },
@@ -59,14 +53,6 @@ const user = {
         } catch (err) {
             console.log('update profile ERROR : ', err);
             throw err;
-        }
-    },
-    findAll: async () => {
-        try {
-            const results = models.User.findAll()
-            return results;
-        } catch (err) {
-            console.error(err);
         }
     }
 }

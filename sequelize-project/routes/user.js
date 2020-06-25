@@ -9,7 +9,6 @@ const upload = require('../modules/multer');
 // });
 router.post('/signup', UserController.signup);
 router.post('/signin', UserController.signin);
-router.get('/find', UserController.findAll);
 
 
 /* 
