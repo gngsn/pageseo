@@ -71,11 +71,7 @@ module.exports = {
         const profileImg = req.file.location;
 
         if (profileImg === undefined)
-            return res.status(CODE.OK).send(util.success(CODE.BAD_REQUEST, MSG.NULL_VALUE));
-
-        const type = req.file.mimetype.split('/')[1];
-        if (type !== 'jpeg' && type !== 'jpg' && type !== 'png')
-            return res.status(CODE.OK).send(util.success(CODE.OK, MSG.UNSUPPORTED_TYPE));
+            return res.status(CODE.OK).send(util.success(CODE.BAD_REQUEST, MSG.NULL_VALUE));        
 
         const result = await UserModel.updateProfile(userIdx, profileImg);
         res.status(CODE.OK).send(util.success(CODE.OK, MSG.UPDATE_PROFILE_SUCCESS, result));

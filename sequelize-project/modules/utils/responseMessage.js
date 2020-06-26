@@ -29,6 +29,7 @@ module.exports = {
     SAVE_IMAGE_SUCCESS: '이미지 저장 성공',
     IMAGE_NOT_FOUND: '이미지를 첨부해주세요.',
     WRONG_FIELD_NAME: '필드명을 정확하게 입력해주세요.',
+    TOO_LARGE_FILE: '용량 초과',
 
     DB_ERROR: 'DB 오류'
 };
