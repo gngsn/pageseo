@@ -9,6 +9,8 @@ module.exports = {
         await upload.single('image')(req, res, function (err) {
             if (err instanceof multer.MulterError) {
                 console.log('multer upload error : ', err);
+                if (err.field !== 'image')
+                    return res.status(CODE.BAD_REQUEST).send(util.fail(CODE.BAD_REQUEST, MSG.WRONG_FIELD_NAME));
                 return res.status(CODE.BAD_REQUEST).send(util.fail(CODE.BAD_REQUEST, MSG.BAD_REQUEST_IMAGE));
             } else if (err) {
                 console.log('unknown error : ', err);
@@ -26,6 +28,8 @@ module.exports = {
                 }
                 if (err instanceof multer.MulterError) {
                     console.log('multer upload error : ', err);
+                    if (err.field !== 'images')
+                        return res.status(CODE.BAD_REQUEST).send(util.fail(CODE.BAD_REQUEST, MSG.WRONG_FIELD_NAME));
                     return res.status(CODE.BAD_REQUEST).send(util.fail(CODE.BAD_REQUEST, MSG.BAD_REQUEST_IMAGE));
                 } else if (err) {
                     console.log('unknown error : ', err);

@@ -44,12 +44,9 @@ const user = {
         }
     },
     updateProfile: async (userIdx, profile) => {
-        let query = `UPDATE ${table} SET image="${profile}" WHERE userIdx="${userIdx}"`;
         try {
-            await pool.queryParam(query);
-            query = `SELECT id, name, email, image FROM ${table} WHERE userIdx="${userIdx}"`;
-            const result = await pool.queryParam(query);
-            return result;
+            const result = await models.User.update({image: profile}, {where: {userIdx: userIdx}});
+            console.log(result);
         } catch (err) {
             console.log('update profile ERROR : ', err);
             throw err;
