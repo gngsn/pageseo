@@ -26,8 +26,7 @@ module.exports = {
             if (req.file.size > 2 * 1000 * 1000) {
                 const err = new ErrorHandler(CODE.BAD_REQUEST, MSG.TOO_LARGE_FILE);
                 return handleMulterError(err, res, key);
-            }
-
+            } 
             const type = req.file.mimetype.split('/')[1];
             if (type !== 'jpeg' && type !== 'jpg' && type !== 'png') {
                 const err = new ErrorHandler(CODE.BAD_REQUEST, MSG.UNSUPPORTED_TYPE);

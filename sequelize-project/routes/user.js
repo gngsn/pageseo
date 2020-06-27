@@ -6,6 +6,6 @@ const upload = require('../middlewares/multer');
 
 router.post('/signup', UserController.signup);
 router.post('/signin', UserController.signin);
-router.post('/profile', AuthMiddleware.checkToken, upload.many(1), UserController.updateProfile);
+router.post('/profile', AuthMiddleware.checkToken, upload.single(1), UserController.updateProfile);
 
 module.exports = router;
