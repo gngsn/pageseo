@@ -14,11 +14,12 @@ module.exports = {
     },
     array: async (req, res) => {
         const images = req.files;
-        if (images === undefined) {
+
+        if (images === undefined)
             return res.status(CODE.OK).send(util.success(CODE.BAD_REQUEST, MSG.IMAGE_NOT_FOUND));
-        }
+
         const location = images.map(img => img.location);
-        res.status(CODE.OK).send(util.success(CODE.OK, images.length + '개의 '+ MSG.SAVE_IMAGE_SUCCESS, {
+        return res.status(CODE.OK).send(util.success(CODE.OK, images.length + '개의 '+ MSG.SAVE_IMAGE_SUCCESS, {
             images: location
         }));
     }

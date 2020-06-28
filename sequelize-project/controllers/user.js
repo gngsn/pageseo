@@ -68,7 +68,6 @@ module.exports = {
     },
     updateProfile: async (req, res) => {
         const userIdx = req.decoded.userIdx;
-        console.log(req.file);
         const profileImg = req.file.location;
 
         if (profileImg === undefined)

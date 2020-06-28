@@ -8,7 +8,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 router.use('/user', require('./user'));
-router.post('/image', AuthMiddleware.checkToken, upload.single, ImageController.single);
 router.post('/images', AuthMiddleware.checkToken, upload.many(3), ImageController.array);
 
 module.exports = router;
