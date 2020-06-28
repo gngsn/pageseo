@@ -12,7 +12,7 @@ const {
 module.exports = {
     single: async (req, res, next) => {
         await upload.single('image')(req, res, (err) => {
-            const key = req.file.location;
+            const key = req.file.key;
             if (err) {
                 console.log('multer upload error : ', err);
                 if (err.field !== 'image') {
@@ -43,6 +43,7 @@ module.exports = {
                 if (req.files.length > img) {
                     return res.status(CODE.BAD_REQUEST).send(util.fail(CODE.BAD_REQUEST, MSG.BAD_REQUEST_IMAGE + ` 이미지를 ${img}장만 보내주세요.`));
                 }
+
                 if (err) {
                     console.log('multer upload error : ', err);
                     if (err.field !== 'image')
@@ -52,15 +53,14 @@ module.exports = {
                 // 용량 제한 2MB
                 if (req.files.size > 2 * 1000 * 1000) {
                     const err = new ErrorHandler(CODE.BAD_REQUEST, MSG.TOO_LARGE_FILE);
-                    return handleMulterError(err, res, key);
+                    handleMulterError(err, res, key);
                 }
-
                 console.log(req.files);
                 req.files.array.forEach(e => {
                     const type = e.mimetype.split('/')[1];
                     if (type !== 'jpeg' && type !== 'jpg' && type !== 'png') {
                         const err = new ErrorHandler(CODE.BAD_REQUEST, MSG.UNSUPPORTED_TYPE);
-                        return handleMulterError(err, res, key);
+                        handleMulterError(err, res, key);
                     }
                 });
                 next();

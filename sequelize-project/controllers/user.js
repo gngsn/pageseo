@@ -68,7 +68,8 @@ module.exports = {
     },
     updateProfile: async (req, res) => {
         const userIdx = req.decoded.userIdx;
-        const profileImg = req.files[0].location;
+        console.log(req.file);
+        const profileImg = req.file.location;
 
         if (profileImg === undefined)
             return res.status(CODE.OK).send(util.success(CODE.BAD_REQUEST, MSG.NULL_VALUE));        

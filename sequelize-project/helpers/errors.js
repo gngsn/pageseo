@@ -18,25 +18,26 @@ const handleError = (err, res) => {
         statusCode,
         message
     } = err;
-    res.status(statusCode).send(util.fail(statusCode, message));
+    return res.status(statusCode).send(util.fail(statusCode, message));
 };
 
-const handleMulterError = (err, res, key) => {
+const handleMulterError = async (err, res, key) => {
     const {
         statusCode,
         message
     } = err;
-    s3.deleteObject({
-        bucket: BUCKET,
-        key: key
+    console.log(key);
+    await s3.deleteObject({
+        Bucket: BUCKET,
+        Key: key
     }, (err, data) => {
         if (err) console.log(err, err.stack); // an error occurred
         else {
             console.log(data);
             console.log('삭제 성공!');
-        } // successful response
+        }
     });
-    res.status(statusCode).send(util.fail(statusCode, message));
+    return res.status(statusCode).send(util.fail(statusCode, message));
 };
 
 module.exports = {
