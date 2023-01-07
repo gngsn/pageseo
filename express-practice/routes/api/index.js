@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+/* GET /api */
 router.get('/', (req, res) => {
     const result = {
         status: 200,
