@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import plus from './plus.png';
 import Modal from './components/Modal';
 
 class App extends React.Component {
@@ -34,13 +33,11 @@ class App extends React.Component {
     })
     .then( memos => {
         this.setState({memos: memos});
-      console.log( "Network success - memo : ", memos );
     })
     .catch( error =>
       console.log( "Network Error : ", error )
     );
   }
-
 
   componentWillMount() {
       fetch('/memo', {
@@ -55,7 +52,6 @@ class App extends React.Component {
       })
       .then( memos => {
           this.setState({memos: memos});
-        console.log( "Network success - memo : ", memos );
       })
       .catch( error =>
         console.log( "Network Error : ", error )
@@ -83,7 +79,7 @@ class App extends React.Component {
                 )}
                 <td className='cell' >
 										<div className='inner' onClick={this.openModal}>
-                    <img src={plus} className='picture' alt='logo' />
+                    <img src={'/plus.png'} className='picture' alt='logo' />
 										</div>
 									</td>
 							</tr>
