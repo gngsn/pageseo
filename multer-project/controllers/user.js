@@ -19,12 +19,12 @@ module.exports = {
     },
     uploadMultiImages: async (req, res) => {
         const image = req.files;
-        const backImage = image.background[0];
-        const profiles = image.profiles;
-        const profilePath = profiles.map(img => img.path);
         if (image === undefined) {
             return res.status(400).send(util.fail(400, "이미지가 존재하지 않습니다."));
         }
+        const backImage = image.background[0];
+        const profiles = image.profiles;
+        const profilePath = profiles.map(img => img.path);
         const dto = {
             backImage : backImage.path,
             profiles : profilePath

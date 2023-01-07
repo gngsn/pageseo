@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 // mongoose setup
 mongoose.Promise = global.Promise;
 mongoose.createConnection('mongodb://127.0.0.1:27017/', { useNewUrlParser: true });
-
+mongoose.set('strictQuery', false);
 var db = mongoose.connection;
 
 db.on('error', console.error);
@@ -32,7 +32,7 @@ mongoose.connect('mongodb://localhost/memo');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());

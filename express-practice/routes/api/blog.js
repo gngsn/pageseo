@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+/* GET /api/blog */
 router.get('/', (req, res) => {
     const post = {
         title: 'express, 어렵지 않게 사용하기',
