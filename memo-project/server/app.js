@@ -19,7 +19,6 @@ app.use(bodyParser.json());
 mongoose.Promise = global.Promise;
 mongoose.createConnection('mongodb://127.0.0.1:27017/', { useNewUrlParser: true });
 mongoose.set('strictQuery', false);
-
 var db = mongoose.connection;
 
 db.on('error', console.error);
